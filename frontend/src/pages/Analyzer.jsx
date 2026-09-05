@@ -104,7 +104,7 @@ function Analyzer() {
             formData.append("job_description", jobDescription);
 
             const response = await fetch(
-                "http://localhost:8000/analyze",
+                `${import.meta.env.VITE_API_URL}/analyze`,
                 {
                     method: "POST",
                     body: formData,
@@ -181,67 +181,67 @@ function Analyzer() {
     return (
         <div className="app" id="analyzer">
 
-                {/* Header */}
-                {!result && (
-                    <header className="header">
-                        <h1>ResumeAI</h1>
+            {/* Header */}
+            {!result && (
+                <header className="header">
+                    <h1>ResumeAI</h1>
 
-                        <p>
-                            Analyze your resume against any job description
-                            using AI-powered insights.
-                        </p>
-                    </header>
-                )}
+                    <p>
+                        Analyze your resume against any job description
+                        using AI-powered insights.
+                    </p>
+                </header>
+            )}
 
-                {/* Input Section */}
-                {!result && (
-                    <div className="input-section">
+            {/* Input Section */}
+            {!result && (
+                <div className="input-section">
 
-                        {/* Resume Upload */}
-                        <ResumeUpload
-                            resume={resume}
-                            onFileChange={handleFileChange}
-                            onDragOver={handleDragOver}
-                            onDragLeave={handleDragLeave}
-                            onDrop={handleDrop}
-                            isDragging={isDragging}
-                            onRemove={() => setResume(null)}
-                        />
-
-                        {/* Job Description */}
-                        <JobDescription
-                            jobDescription={jobDescription}
-                            onChange={setJobDescription}
-                        />
-
-                        {/* Analyze Button */}
-                        <AnalyzeButton
-                            loading={loading}
-                            onAnalyze={analyzeResume}
-                        />
-
-                        {/* Error */}
-                        {error && (
-                            <div className="error-message">
-                                {error}
-                            </div>
-                        )}
-
-                    </div>
-                )}
-
-
-                {/* Analysis Result */}
-                {result && !loading && (
-                    <AnalysisResult
-                        result={result}
-                        onReset={resetAnalysis}
-                        getSkillsMatch={getSkillsMatch}
-                        getExperienceMatch={getExperienceMatch}
+                    {/* Resume Upload */}
+                    <ResumeUpload
+                        resume={resume}
+                        onFileChange={handleFileChange}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        isDragging={isDragging}
+                        onRemove={() => setResume(null)}
                     />
-                )}
 
-            </div>
+                    {/* Job Description */}
+                    <JobDescription
+                        jobDescription={jobDescription}
+                        onChange={setJobDescription}
+                    />
+
+                    {/* Analyze Button */}
+                    <AnalyzeButton
+                        loading={loading}
+                        onAnalyze={analyzeResume}
+                    />
+
+                    {/* Error */}
+                    {error && (
+                        <div className="error-message">
+                            {error}
+                        </div>
+                    )}
+
+                </div>
+            )}
+
+
+            {/* Analysis Result */}
+            {result && !loading && (
+                <AnalysisResult
+                    result={result}
+                    onReset={resetAnalysis}
+                    getSkillsMatch={getSkillsMatch}
+                    getExperienceMatch={getExperienceMatch}
+                />
+            )}
+
+        </div>
     );
 }
 
